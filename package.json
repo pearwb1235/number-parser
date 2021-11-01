@@ -1,17 +1,24 @@
 {
-  "name": "babel-template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@pearwb/number-parser",
+  "version": "0.1.0",
+  "description": "Convert Arabic numerals",
+  "main": "dist",
   "scripts": {
     "start": "babel-node -x .js,.ts src",
-    "build": "babel src --out-dir dist -x .js,.ts --ignore **/*.test.js,**/*.test.ts,**/__tests__",
+    "build": "npm run build.compile && npm run build.types",
+    "build.compile": "babel src --out-dir dist -x .js,.ts --ignore **/*.d.ts,**/*.test.js,**/*.test.ts,**/__tests__ --source-maps",
+    "build.types": "tsc --project tsconfig.types.json",
     "test": "lint-staged && jest --passWithNoTests",
     "prepare": "node prepare.js"
   },
+  "repository": "pearwb1235/number-parser",
   "keywords": [],
-  "author": "",
+  "author": "pearwb1235",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pearwb1235/number-parser/issues"
+  },
+  "homepage": "https://github.com/pearwb1235/number-parser",
   "devDependencies": {
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",

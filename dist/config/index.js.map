@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/config/index.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA","sourcesContent":["export { config as TC_Config } from \"./tc-config\";\n\nexport type Config = {\n  number: Record<string, number>;\n  unit: Record<string, number>;\n  dot: string[];\n};\n"],"file":"index.js"}

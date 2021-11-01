@@ -137,3 +137,16 @@ dist
 
 # Publish File
 !dist
+
+# Develop File
+.husky
+src
+.babelrc.json
+.eslintrc.json
+.gitattributes
+.gitignore
+.lintstagedrc.json
+.prettierrc.json
+prepare.js
+tsconfig.json
+tsconfig.types.json
