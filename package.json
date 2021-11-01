@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node -x .js,.ts src",
     "build": "npm run build.compile && npm run build.types",
-    "build.compile": "babel src --out-dir dist -x .js,.ts --ignore **/*.d.ts,**/*.test.js,**/*.test.ts,**/__tests__ --source-maps",
+    "build.compile": "babel src --out-dir dist -x .js,.ts --ignore **/*.d.ts,**/*.test.js,**/*.test.ts,**/__tests__ --source-maps --delete-dir-on-start",
     "build.types": "tsc --project tsconfig.types.json",
     "test": "lint-staged && jest --passWithNoTests",
     "prepare": "node prepare.js"
