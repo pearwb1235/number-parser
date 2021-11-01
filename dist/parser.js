@@ -33,9 +33,9 @@ var ParserConfig = /*#__PURE__*/function () {
     value: function loadConfig(config) {
       this.config = config;
       this.allowChar = [].concat(Object.keys(this.config.number)).concat(Object.keys(this.config.unit)).concat(this.config.dot);
-      var numberRegStr = Object.keys(this.config.number).join("").replace(/\./, "\\");
-      var unitRegStr = Object.keys(this.config.unit).join("").replace(/\./, "\\");
-      var dotRegStr = this.config.dot.join("").replace(/\./, "\\");
+      var numberRegStr = Object.keys(this.config.number).join("").replace(/(\.)/, "\\$1");
+      var unitRegStr = Object.keys(this.config.unit).join("").replace(/(\.)/, "\\$1");
+      var dotRegStr = this.config.dot.join("").replace(/(\.)/, "\\$1");
       this.numberRegStr = new RegExp("[".concat(numberRegStr, "]"));
       this.unitRegStr = new RegExp("[".concat(unitRegStr, "]"));
       this.dotRegexp = new RegExp("[".concat(dotRegStr, "]"));
@@ -120,7 +120,9 @@ var Parser = /*#__PURE__*/function () {
       for (var i = 0; i < str.length; i++) {
         var s = str[i];
 
-        if (this.config.unitRegStr.test(s)) {
+        if (this.config.dotRegexp.test(s)) {
+          newStr += ".";
+        } else if (this.config.unitRegStr.test(s)) {
           if (i + 1 >= str.length || this.config.unitRegStr.test(str[i + 1])) newStr += this.config.parseUnit(s).toString().substr(1);else if (this.config.parseNumber(str[i + 1]) === 0 && !["0", "０"].includes(str[i + 1])) {
             newStr += this.config.parseUnit(s).toString().substr(1);
             var sub = this.parseNumber(str.substr(i + 2)).toString();

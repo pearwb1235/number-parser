@@ -20,11 +20,11 @@ export class ParserConfig {
       .concat(this.config.dot);
     const numberRegStr = Object.keys(this.config.number)
       .join("")
-      .replace(/\./, "\\");
+      .replace(/(\.)/, "\\$1");
     const unitRegStr = Object.keys(this.config.unit)
       .join("")
-      .replace(/\./, "\\");
-    const dotRegStr = this.config.dot.join("").replace(/\./, "\\");
+      .replace(/(\.)/, "\\$1");
+    const dotRegStr = this.config.dot.join("").replace(/(\.)/, "\\$1");
     this.numberRegStr = new RegExp(`[${numberRegStr}]`);
     this.unitRegStr = new RegExp(`[${unitRegStr}]`);
     this.dotRegexp = new RegExp(`[${dotRegStr}]`);
@@ -108,7 +108,9 @@ export class Parser {
     let newStr = "";
     for (let i = 0; i < str.length; i++) {
       const s = str[i];
-      if (this.config.unitRegStr.test(s)) {
+      if (this.config.dotRegexp.test(s)) {
+        newStr += ".";
+      } else if (this.config.unitRegStr.test(s)) {
         if (i + 1 >= str.length || this.config.unitRegStr.test(str[i + 1]))
           newStr += this.config.parseUnit(s).toString().substr(1);
         else if (
