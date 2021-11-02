@@ -130,6 +130,7 @@ export class Parser {
       while (newStr.endsWith("0")) {
         newStr = newStr.substr(0, newStr.length - 1);
       }
+      if (newStr.endsWith(".")) newStr = newStr.substr(0, newStr.length - 1);
     }
     const result = Number(newStr);
     if (result.toString() !== newStr)

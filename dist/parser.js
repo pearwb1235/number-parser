@@ -138,6 +138,8 @@ var Parser = /*#__PURE__*/function () {
         while (newStr.endsWith("0")) {
           newStr = newStr.substr(0, newStr.length - 1);
         }
+
+        if (newStr.endsWith(".")) newStr = newStr.substr(0, newStr.length - 1);
       }
 
       var result = Number(newStr);

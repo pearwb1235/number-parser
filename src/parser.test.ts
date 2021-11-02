@@ -20,6 +20,9 @@ describe("基本", () => {
   it("1.20", () => {
     expect(TCNumberParser.parse("1.20")).toEqual(1.2);
   });
+  it("12.0", () => {
+    expect(TCNumberParser.parse("12.0")).toEqual(12);
+  });
   it("1.2萬", () => {
     expect(TCNumberParser.parse("1.2萬")).toEqual(12000);
   });
