@@ -69,10 +69,27 @@ export class Parser {
     if (this.config.dotRegexp.test(input)) {
       if (this.config.unitRegStr.test(input.substr(-1))) {
         // 1.2萬
-        return (
-          this.parseNumber(input.substr(0, input.length - 1)) *
-          this.config.parseUnit(input.substr(-1))
-        );
+        const unit = this.config.parseUnit(input.substr(-1));
+        if (unit % 1 === 0) {
+          const match = /(0+)$/.exec(unit.toString());
+          if (match) {
+            const inputs = input
+              .substr(0, input.length - 1)
+              .split(this.config.dotRegexp);
+            input =
+              inputs[0] +
+              inputs[1].substr(0, match[1].length).padEnd(match[1].length, "0");
+            if (match[1].length < inputs[1].length)
+              input += "." + inputs[1].substr(match[2].length);
+            return (
+              this.parseNumber(input.replace(/^0+/, "")) *
+              (unit / Math.pow(10, match[1].length))
+            );
+          }
+          return this.parseNumber(input.substr(0, input.length - 1)) * unit;
+        } else {
+          return this.parseNumber(input.substr(0, input.length - 1)) * unit;
+        }
       } else {
         // 1.2
         return this.parseNumber(input);

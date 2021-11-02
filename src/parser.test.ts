@@ -33,3 +33,9 @@ describe("基本", () => {
     expect(TCNumberParser.parse("一萬零二")).toEqual(10002);
   });
 });
+
+describe("浮點數錯誤", () => {
+  it("0.00013億", () => {
+    expect(TCNumberParser.parse("0.00013億")).toEqual(13000);
+  });
+});
