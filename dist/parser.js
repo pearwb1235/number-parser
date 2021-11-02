@@ -134,6 +134,12 @@ var Parser = /*#__PURE__*/function () {
         }
       }
 
+      if (this.config.dotRegexp.test(newStr)) {
+        while (newStr.endsWith("0")) {
+          newStr = newStr.substr(0, newStr.length - 1);
+        }
+      }
+
       var result = Number(newStr);
       if (result.toString() !== newStr) throw new _error["default"](999, "確認數字轉換結果失敗");
       return result;
