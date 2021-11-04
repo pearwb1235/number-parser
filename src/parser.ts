@@ -133,13 +133,23 @@ export class Parser {
       if (this.config.dotRegexp.test(s)) {
         newStr += ".";
       } else if (this.config.unitRegStr.test(s)) {
-        if (i + 1 >= str.length || this.config.unitRegStr.test(str[i + 1]))
-          newStr += this.config.parseUnit(s).toString().substr(1);
+        if (
+          i + 1 >= str.length ||
+          this.config.unitRegStr.test(str[i + 1]) ||
+          this.config.dotRegexp.test(str[i + 1])
+        )
+          newStr += this.config
+            .parseUnit(s)
+            .toString()
+            .substr(i === 0 ? 0 : 1);
         else if (
           this.config.parseNumber(str[i + 1]) === 0 &&
           !["0", "０"].includes(str[i + 1])
         ) {
-          newStr += this.config.parseUnit(s).toString().substr(1);
+          newStr += this.config
+            .parseUnit(s)
+            .toString()
+            .substr(i === 0 ? 0 : 1);
           const sub = this.parseNumber(str.substr(i + 2)).toString();
           newStr = newStr.substr(0, newStr.length - sub.length) + sub;
           break;
