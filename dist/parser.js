@@ -116,10 +116,15 @@ var Parser = /*#__PURE__*/function () {
         }
 
         if (this.config.unitRegStr.test(input.substr(-2, 1)) && this.config.numberRegStr.test(input.substr(-1))) {
+          // 【十二】
           // 一【千二】
           var _unit = this.config.parseUnit(input.substr(-2, 1));
 
-          return this.parseNumber(input.substr(0, input.length - 2)) * _unit + this.parseNumber(input.substr(-1)) * _unit / 10;
+          if (input.length > 2) {
+            return this.parseNumber(input.substr(0, input.length - 2)) * _unit + this.parseNumber(input.substr(-1)) * _unit / 10;
+          } else {
+            return _unit + this.parseNumber(input.substr(-1)) * _unit / 10;
+          }
         } else {
           // 四千三百二十一
           return this.parseNumber(input);

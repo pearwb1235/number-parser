@@ -108,12 +108,17 @@ export class Parser {
         this.config.unitRegStr.test(input.substr(-2, 1)) &&
         this.config.numberRegStr.test(input.substr(-1))
       ) {
+        // 【十二】
         // 一【千二】
         const unit = this.config.parseUnit(input.substr(-2, 1));
-        return (
-          this.parseNumber(input.substr(0, input.length - 2)) * unit +
-          (this.parseNumber(input.substr(-1)) * unit) / 10
-        );
+        if (input.length > 2) {
+          return (
+            this.parseNumber(input.substr(0, input.length - 2)) * unit +
+            (this.parseNumber(input.substr(-1)) * unit) / 10
+          );
+        } else {
+          return unit + (this.parseNumber(input.substr(-1)) * unit) / 10;
+        }
       } else {
         // 四千三百二十一
         return this.parseNumber(input);
