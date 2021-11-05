@@ -155,7 +155,8 @@ export class Parser {
           break;
         }
       } else {
-        newStr += this.config.parseNumber(s).toString();
+        const n = this.config.parseNumber(s);
+        if (newStr.length > 0 || n !== 0) newStr += n.toString();
       }
     }
     if (this.config.dotRegexp.test(newStr)) {

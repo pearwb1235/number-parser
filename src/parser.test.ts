@@ -8,6 +8,9 @@ describe("基本", () => {
   it("12345", () => {
     expect(TCNumberParser.parse("12345")).toEqual(12345);
   });
+  it("01234", () => {
+    expect(TCNumberParser.parse("01234")).toEqual(1234);
+  });
   it("一萬", () => {
     expect(TCNumberParser.parse("一萬")).toEqual(10000);
   });

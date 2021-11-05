@@ -151,7 +151,8 @@ var Parser = /*#__PURE__*/function () {
             break;
           }
         } else {
-          newStr += this.config.parseNumber(s).toString();
+          var n = this.config.parseNumber(s);
+          if (newStr.length > 0 || n !== 0) newStr += n.toString();
         }
       }
 
