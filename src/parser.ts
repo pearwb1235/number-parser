@@ -156,7 +156,13 @@ export class Parser {
         }
       } else {
         const n = this.config.parseNumber(s);
-        if (newStr.length > 0 || n !== 0) newStr += n.toString();
+        if (
+          newStr.length > 0 ||
+          n !== 0 ||
+          i + 1 >= str.length ||
+          str[i + 1] === "."
+        )
+          newStr += n.toString();
       }
     }
     if (this.config.dotRegexp.test(newStr)) {
